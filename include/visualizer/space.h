@@ -22,11 +22,13 @@ class Space {
 
   void Clear();
 
+  Battleship& GetBattleship();
+
  private:
-  Battleship battleship_;
   glm::vec2 top_left_corner_;
   std::vector<Hitbox> hitboxes_;
   size_t dimensions_;
+  Battleship battleship_;
 };
 
 }  // namespace galaga

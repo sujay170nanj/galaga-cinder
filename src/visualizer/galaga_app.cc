@@ -26,15 +26,18 @@ void galaga::GalagaApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_z:
       // left shoot
+      space_.GetBattleship().LeftShoot();
       break;
     case ci::app::KeyEvent::KEY_x:
       // right shoot
       break;
     case ci::app::KeyEvent::KEY_LEFT:
       // move right
+      space_.GetBattleship().MoveLeft();
       break;
     case ci::app::KeyEvent::KEY_RIGHT:
       // move left
+      space_.GetBattleship().MoveRight();
       break;
   }
 }

@@ -8,7 +8,8 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions,
                      const std::vector<Hitbox>& hitboxes)
     : top_left_corner_(top_left_corner),
       dimensions_(dimensions),
-      hitboxes_(hitboxes) {
+      hitboxes_(hitboxes),
+      battleship_(glm::vec2(top_left_corner_[0] + static_cast<float>(dimensions)/2, top_left_corner_[1] + 9*static_cast<float>(dimensions)/10)) {
 }
 
 void galaga::Space::Update() {
@@ -23,4 +24,8 @@ void galaga::Space::Draw() const {
 }
 
 void galaga::Space::Clear() {
+}
+
+galaga::Battleship& galaga::Space::GetBattleship() {
+  return battleship_;
 }
