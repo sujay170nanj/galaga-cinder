@@ -13,7 +13,8 @@
 namespace galaga {
 
 /**
- * Allows a user to view the container of particles, as well as generate and clear
+ * Allows a user to view the container of particles, as well as generate and
+ * clear
  */
 class GalagaApp : public ci::app::App {
  public:
@@ -42,4 +43,4 @@ class GalagaApp : public ci::app::App {
 };
 
 }  // namespace galaga
-#endif //GALAGA_GALAGA_APP_H
+#endif  // GALAGA_GALAGA_APP_H

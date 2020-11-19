@@ -16,9 +16,6 @@ void galaga::Battleship::MoveLeft() {
   center_position_[0] -= kSpeed;
 }
 
-void galaga::Battleship::LeftShoot() {
-}
-
 void galaga::Battleship::Draw() const {
   cinder::gl::Texture2dRef texture =
       cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
