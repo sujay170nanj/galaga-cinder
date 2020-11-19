@@ -19,7 +19,7 @@ void galaga::Battleship::LeftShoot() {
 
 }
 
-void galaga::Battleship::Draw() {
+void galaga::Battleship::Draw() const {
   cinder::gl::Texture2dRef texture = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 
   ci::gl::draw(texture);

@@ -5,6 +5,7 @@
 #ifndef GALAGA_SPACE_H
 #define GALAGA_SPACE_H
 
+#include <core/entities/battleship.h>
 #include <core/hitbox.h>
 
 #include "cinder/gl/gl.h"
@@ -21,8 +22,13 @@ class Space {
 
   void Clear();
 
+ private:
+  Battleship battleship_;
+  glm::vec2 top_left_corner_;
+  std::vector<Hitbox> hitboxes_;
+  size_t dimensions_;
 };
 
-}
+}  // namespace galaga
 
-#endif //GALAGA_SPACE_H
+#endif  // GALAGA_SPACE_H

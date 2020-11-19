@@ -17,7 +17,7 @@ namespace galaga {
  */
 class GalagaApp : public ci::app::App {
  public:
-  GalagaApp(Space space);
+  GalagaApp();
 
   void update() override;
 
@@ -31,11 +31,11 @@ class GalagaApp : public ci::app::App {
   // Size of the space container
   const size_t kBoxSize = 650;
   // Horizontal size of the window
-  const size_t kWindowSizeX = 1175;
+  const size_t kWindowSizeX = 1000;
   // Vertical size of the window
-  const size_t kWindowSizeY = 975;
-  // Size of the margins
-
+  const size_t kWindowSizeY = 850;
+  // Top left corner vec2 of space box
+  const glm::vec2 kSpaceTopLeftCorner = glm::vec2(100, 100);
 
  private:
   Space space_;

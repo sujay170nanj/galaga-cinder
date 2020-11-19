@@ -4,7 +4,9 @@
 
 #include "visualizer/galaga_app.h"
 
-galaga::GalagaApp::GalagaApp(Space space) : space_(space) {
+galaga::GalagaApp::GalagaApp() : space_(kSpaceTopLeftCorner, kBoxSize) {
+  ci::app::setWindowSize(static_cast<int>(kWindowSizeX),
+                         static_cast<int>(kWindowSizeY));
 }
 
 void galaga::GalagaApp::update() {
@@ -15,6 +17,8 @@ void galaga::GalagaApp::draw() {
   AppBase::draw();
   ci::Color8u background_color(255, 246, 148);  // yellow
   ci::gl::clear(background_color);
+
+  space_.Draw();
 }
 
 void galaga::GalagaApp::keyDown(ci::app::KeyEvent event) {
