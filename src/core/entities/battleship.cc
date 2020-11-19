@@ -4,7 +4,7 @@
 
 #include "core/entities/battleship.h"
 
-galaga::Battleship::Battleship(const glm::vec2& position, const Hitbox& hitbox) : center_position_(position), hitbox_(hitbox) {
+galaga::Battleship::Battleship(const glm::vec2& position) : center_position_(position) {
 }
 
 void galaga::Battleship::MoveRight() {
@@ -22,5 +22,8 @@ void galaga::Battleship::LeftShoot() {
 void galaga::Battleship::Draw() const {
   cinder::gl::Texture2dRef texture = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 
-  ci::gl::draw(texture);
+  cinder::Rectf drawRect( 0, 0, texture->getWidth() / 3.0f,
+                  texture->getHeight() / 3.0f );
+
+  ci::gl::draw(texture, drawRect);
 }
