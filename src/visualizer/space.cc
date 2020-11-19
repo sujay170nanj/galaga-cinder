@@ -16,8 +16,9 @@ void galaga::Space::Update() {
 }
 
 void galaga::Space::Draw() const {
-  ci::gl::color(ci::Color::black());
-  ci::gl::drawSolidRect(ci::Rectf(top_left_corner_, glm::vec2(top_left_corner_[0] + dimensions_, top_left_corner_[1] + dimensions_)));
+  cinder::gl::Texture2dRef background_texture =
+      cinder::gl::Texture2d::create( cinder::loadImage(kBackgroundFilePath) );
+  ci::gl::draw( background_texture, ci::Rectf(top_left_corner_, glm::vec2(top_left_corner_[0] + dimensions_, top_left_corner_[1] + dimensions_)));
 
   ci::gl::color(ci::Color::white());
   battleship_.Draw();
