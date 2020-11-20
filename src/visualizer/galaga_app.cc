@@ -11,6 +11,7 @@ galaga::GalagaApp::GalagaApp() : space_(kSpaceTopLeftCorner, kBoxSize) {
 
 void galaga::GalagaApp::update() {
   AppBase::update();
+  space_.Update();
 }
 
 void galaga::GalagaApp::draw() {
@@ -26,7 +27,7 @@ void galaga::GalagaApp::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_z:
       // left shoot
-      // space_.BattleshipLeftShoot();
+      space_.BattleshipLeftShoot();
       break;
     case ci::app::KeyEvent::KEY_x:
       // right shoot

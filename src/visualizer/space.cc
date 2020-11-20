@@ -15,6 +15,10 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions,
 }
 
 void galaga::Space::Update() {
+  for (PlayerBullet& bullet: bullets_) {
+    bullet.Update();
+  }
+
 }
 
 void galaga::Space::Draw() const {
@@ -27,12 +31,19 @@ void galaga::Space::Draw() const {
 
   ci::gl::color(ci::Color::white());
   battleship_.Draw();
+
+  for (const PlayerBullet& bullet: bullets_) {
+    bullet.Draw();
+  }
+
 }
 
 void galaga::Space::Clear() {
+
 }
 
-void BattleshipLeftShoot() {
+void galaga::Space::BattleshipLeftShoot() {
+  bullets_.emplace_back(PlayerBullet(glm::vec2(battleship_.GenerateRectPosition().getCenter()[0], battleship_.GenerateRectPosition().getUpperLeft()[1] - kBulletMargin)));
 }
 
 galaga::Battleship& galaga::Space::GetBattleship() {

@@ -2,8 +2,7 @@
 // Created by sujay on 11/17/2020.
 //
 
-#ifndef GALAGA_GALAGA_APP_H
-#define GALAGA_GALAGA_APP_H
+#pragma once
 
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
@@ -43,4 +42,3 @@ class GalagaApp : public ci::app::App {
 };
 
 }  // namespace galaga
-#endif  // GALAGA_GALAGA_APP_H

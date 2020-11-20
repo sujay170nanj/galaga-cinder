@@ -2,8 +2,7 @@
 // Created by sujay on 11/17/2020.
 //
 
-#ifndef GALAGA_SPACE_H
-#define GALAGA_SPACE_H
+#pragma once
 
 #include <core/entities/battleship.h>
 #include <core/hitbox.h>
@@ -29,6 +28,8 @@ class Space {
   Battleship& GetBattleship();
 
  private:
+  const size_t kBulletMargin = 5;
+
   const std::string kBackgroundFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\background.gif";
@@ -37,9 +38,7 @@ class Space {
   std::vector<Hitbox> hitboxes_;
   size_t dimensions_;
   Battleship battleship_;
-  // std::vector<PlayerBullet> bullets_;
+  std::vector<PlayerBullet> bullets_;
 };
 
 }  // namespace galaga
-
-#endif  // GALAGA_SPACE_H

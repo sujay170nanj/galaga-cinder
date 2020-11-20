@@ -9,7 +9,7 @@ galaga::PlayerBullet::PlayerBullet(const glm::vec2& position)
 }
 
 void galaga::PlayerBullet::Update() {
-  center_position_[1] += kSpeed;
+  center_position_[1] -= kSpeed;
 }
 
 void galaga::PlayerBullet::Draw() const {

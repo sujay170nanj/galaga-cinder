@@ -2,8 +2,7 @@
 // Created by sujay on 11/17/2020.
 //
 
-#ifndef GALAGA_BATTLESHIP_H
-#define GALAGA_BATTLESHIP_H
+#pragma once
 
 #include <core/hitbox.h>
 
@@ -22,7 +21,7 @@ class PlayerBullet {
   cinder::Rectf GenerateRectPosition() const;
 
  private:
-  static constexpr size_t kBulletDimensions = 10;
+  static constexpr size_t kBulletDimensions = 20;
   static constexpr size_t kSpeed = 50;
   const std::string kSpriteFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
@@ -33,5 +32,3 @@ class PlayerBullet {
 };
 
 }  // namespace galaga
-
-#endif  // GALAGA_BATTLESHIP_H
