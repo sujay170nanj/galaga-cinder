@@ -61,8 +61,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/space.cc
         src/core/entities/battleship.cc
         src/core/entities/enemy.cc
-        src/core/particles/player_bullet.cc
-        src/core/hitbox.cc)
+        src/core/particles/player_bullet.cc)
 
 list(APPEND TEST_FILES)
 

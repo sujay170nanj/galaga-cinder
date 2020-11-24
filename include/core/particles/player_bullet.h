@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include <core/hitbox.h>
-
 #include "cinder/gl/gl.h"
 
 namespace galaga {
 
 class PlayerBullet {
  public:
+  static constexpr size_t kSpeed = 50;
+
   PlayerBullet(const glm::vec2& position);
 
   void Update();
@@ -20,15 +20,17 @@ class PlayerBullet {
 
   cinder::Rectf GenerateRectPosition() const;
 
+  const glm::vec2& GetCenterPosition() const;
+
+  PlayerBullet& PlayerBullet::operator=(const PlayerBullet& source);
+
  private:
   static constexpr size_t kBulletDimensions = 20;
-  static constexpr size_t kSpeed = 50;
   const std::string kSpriteFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\player_bullet_sprite.png";
 
   glm::vec2 center_position_;
-  Hitbox hitbox_;
 };
 
 }  // namespace galaga

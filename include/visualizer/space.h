@@ -5,7 +5,6 @@
 #pragma once
 
 #include <core/entities/battleship.h>
-#include <core/hitbox.h>
 #include <core/particles/player_bullet.h>
 
 #include "cinder/gl/gl.h"
@@ -14,8 +13,7 @@ namespace galaga {
 
 class Space {
  public:
-  Space(const glm::vec2& top_left_corner, size_t dimensions,
-        const std::vector<Hitbox>& hitboxes = std::vector<Hitbox>());
+  Space(const glm::vec2& top_left_corner, size_t dimensions);
 
   void Update();
 
@@ -35,7 +33,6 @@ class Space {
       "sujay170nanj\\resources\\background.gif";
 
   glm::vec2 top_left_corner_;
-  std::vector<Hitbox> hitboxes_;
   size_t dimensions_;
   Battleship battleship_;
   std::vector<PlayerBullet> bullets_;

@@ -4,21 +4,23 @@
 
 #include "visualizer/space.h"
 
-galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions,
-                     const std::vector<Hitbox>& hitboxes)
+galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
     : top_left_corner_(top_left_corner),
       dimensions_(dimensions),
-      hitboxes_(hitboxes),
       battleship_(glm::vec2(
           top_left_corner_[0] + static_cast<float>(dimensions) / 2,
           top_left_corner_[1] + 9 * static_cast<float>(dimensions) / 10)) {
 }
 
 void galaga::Space::Update() {
-  for (PlayerBullet& bullet: bullets_) {
-    bullet.Update();
+  for (size_t index = 0; index < bullets_.size(); index++) {
+    if ((bullets_[index].GetCenterPosition()[1] - bullets_[index].kSpeed) <
+        (top_left_corner_[1])) {
+      bullets_.erase(bullets_.begin() + index);
+    } else {
+      bullets_[index].Update();
+    }
   }
-
 }
 
 void galaga::Space::Draw() const {
@@ -32,18 +34,19 @@ void galaga::Space::Draw() const {
   ci::gl::color(ci::Color::white());
   battleship_.Draw();
 
-  for (const PlayerBullet& bullet: bullets_) {
+  for (const PlayerBullet& bullet : bullets_) {
     bullet.Draw();
   }
-
 }
 
 void galaga::Space::Clear() {
-
+  bullets_.clear();
 }
 
 void galaga::Space::BattleshipLeftShoot() {
-  bullets_.emplace_back(PlayerBullet(glm::vec2(battleship_.GenerateRectPosition().getCenter()[0], battleship_.GenerateRectPosition().getUpperLeft()[1] - kBulletMargin)));
+  bullets_.emplace_back(PlayerBullet(glm::vec2(
+      battleship_.GenerateRectPosition().getCenter()[0],
+      battleship_.GenerateRectPosition().getUpperLeft()[1] - kBulletMargin)));
 }
 
 galaga::Battleship& galaga::Space::GetBattleship() {

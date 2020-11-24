@@ -27,3 +27,14 @@ cinder::Rectf galaga::PlayerBullet::GenerateRectPosition() const {
 
   return drawRect;
 }
+
+galaga::PlayerBullet& galaga::PlayerBullet::PlayerBullet::operator=(const PlayerBullet& source) {
+  this->center_position_ = source.center_position_;
+  return *this;
+}
+
+
+const glm::vec2& galaga::PlayerBullet::GetCenterPosition() const {
+  return center_position_;
+}
+
