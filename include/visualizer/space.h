@@ -5,6 +5,7 @@
 #pragma once
 
 #include <core/entities/battleship.h>
+#include <core/entities/enemy.h>
 #include <core/particles/player_bullet.h>
 
 #include "cinder/gl/gl.h"
@@ -27,7 +28,7 @@ class Space {
 
  private:
   const size_t kBulletMargin = 5;
-
+  const size_t kNumEnemies = 8;
   const std::string kBackgroundFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\background.gif";
@@ -36,6 +37,7 @@ class Space {
   size_t dimensions_;
   Battleship battleship_;
   std::vector<PlayerBullet> bullets_;
+  std::vector<Enemy> enemies_;
 };
 
 }  // namespace galaga

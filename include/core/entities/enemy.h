@@ -19,13 +19,14 @@ class Enemy {
   cinder::Rectf GenerateRectPosition() const;
 
  private:
-  static constexpr size_t kSpeed = 10;
+  static constexpr size_t kSpeed = 5;
   static constexpr size_t kEnemyDimensions = 60;
   const std::string kSpriteFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\enemy_sprite.png";
 
   glm::vec2 center_position_;
+  cinder::gl::Texture2dRef texture_;
 };
 
 }  // namespace galaga

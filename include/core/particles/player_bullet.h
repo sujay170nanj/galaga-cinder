@@ -10,7 +10,7 @@ namespace galaga {
 
 class PlayerBullet {
  public:
-  static constexpr size_t kSpeed = 50;
+  static constexpr size_t kSpeed = 25;
 
   PlayerBullet(const glm::vec2& position);
 
@@ -31,6 +31,7 @@ class PlayerBullet {
       "sujay170nanj\\resources\\player_bullet_sprite.png";
 
   glm::vec2 center_position_;
+  cinder::gl::Texture2dRef texture_;
 };
 
 }  // namespace galaga

@@ -6,6 +6,7 @@
 
 galaga::Battleship::Battleship(const glm::vec2& position)
     : center_position_(position) {
+  texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 }
 
 void galaga::Battleship::MoveRight() {
@@ -17,10 +18,7 @@ void galaga::Battleship::MoveLeft() {
 }
 
 void galaga::Battleship::Draw() const {
-  cinder::gl::Texture2dRef texture =
-      cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
-
-  ci::gl::draw(texture, GenerateRectPosition());
+  ci::gl::draw(texture_, GenerateRectPosition());
 }
 
 cinder::Rectf galaga::Battleship::GenerateRectPosition() const {

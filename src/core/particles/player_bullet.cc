@@ -6,6 +6,7 @@
 
 galaga::PlayerBullet::PlayerBullet(const glm::vec2& position)
     : center_position_(position) {
+  texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 }
 
 void galaga::PlayerBullet::Update() {
@@ -13,10 +14,7 @@ void galaga::PlayerBullet::Update() {
 }
 
 void galaga::PlayerBullet::Draw() const {
-  cinder::gl::Texture2dRef texture =
-      cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
-
-  ci::gl::draw(texture, GenerateRectPosition());
+  ci::gl::draw(texture_, GenerateRectPosition());
 }
 
 cinder::Rectf galaga::PlayerBullet::GenerateRectPosition() const {

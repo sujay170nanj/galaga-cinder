@@ -5,6 +5,7 @@
 #include "core/entities/enemy.h"
 
 galaga::Enemy::Enemy(const glm::vec2& position) : center_position_(position) {
+  texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 }
 
 void galaga::Enemy::Update() {
@@ -12,10 +13,7 @@ void galaga::Enemy::Update() {
 }
 
 void galaga::Enemy::Draw() const {
-  cinder::gl::Texture2dRef texture =
-      cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
-
-  ci::gl::draw(texture, GenerateRectPosition());
+  ci::gl::draw(texture_, GenerateRectPosition());
 }
 
 cinder::Rectf galaga::Enemy::GenerateRectPosition() const {

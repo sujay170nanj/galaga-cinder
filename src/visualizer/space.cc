@@ -10,6 +10,9 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
       battleship_(glm::vec2(
           top_left_corner_[0] + static_cast<float>(dimensions) / 2,
           top_left_corner_[1] + 9 * static_cast<float>(dimensions) / 10)) {
+  for (size_t enemy_index = 0; enemy_index < kNumEnemies; enemy_index++) {
+    enemies_.emplace_back(Enemy(top_left_corner_[0] + (glm::vec2((enemy_index * static_cast<float>(dimensions)) / kNumEnemies, top_left_corner_[1] + static_cast<float>(dimensions) / 10))));
+  }
 }
 
 void galaga::Space::Update() {
@@ -20,6 +23,10 @@ void galaga::Space::Update() {
     } else {
       bullets_[index].Update();
     }
+  }
+
+  for (Enemy& enemy: enemies_) {
+    enemy.Update();
   }
 }
 
@@ -36,6 +43,10 @@ void galaga::Space::Draw() const {
 
   for (const PlayerBullet& bullet : bullets_) {
     bullet.Draw();
+  }
+
+  for (const Enemy& enemy: enemies_) {
+    enemy.Draw();
   }
 }
 
