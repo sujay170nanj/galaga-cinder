@@ -21,6 +21,12 @@ void galaga::Battleship::Draw() const {
   ci::gl::draw(texture_, GenerateRectPosition());
 }
 
+void galaga::Battleship::Destroy() {
+  if (lives_ > 0) {
+    lives_--;
+  }
+}
+
 cinder::Rectf galaga::Battleship::GenerateRectPosition() const {
   cinder::Rectf drawRect(center_position_[0] - kBattleshipDimensions / 2,
                          center_position_[1] - kBattleshipDimensions / 2,

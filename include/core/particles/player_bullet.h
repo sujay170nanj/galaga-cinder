@@ -10,13 +10,15 @@ namespace galaga {
 
 class PlayerBullet {
  public:
-  static constexpr size_t kSpeed = 25;
+  static constexpr size_t kSpeed = 10;
 
   PlayerBullet(const glm::vec2& position);
 
   void Update();
 
   void Draw() const;
+
+  void Destroy();
 
   cinder::Rectf GenerateRectPosition() const;
 
@@ -25,7 +27,7 @@ class PlayerBullet {
   PlayerBullet& PlayerBullet::operator=(const PlayerBullet& source);
 
  private:
-  static constexpr size_t kBulletDimensions = 20;
+  static constexpr size_t kBulletDimensions = 10;
   const std::string kSpriteFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\player_bullet_sprite.png";

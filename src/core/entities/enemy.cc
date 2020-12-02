@@ -9,12 +9,22 @@ galaga::Enemy::Enemy(const glm::vec2& position) : center_position_(position) {
 }
 
 void galaga::Enemy::Update() {
-  center_position_[1] += kSpeed;
+  center_position_[1] += kVerticalSpeed;
 }
 
 void galaga::Enemy::Draw() const {
   ci::gl::draw(texture_, GenerateRectPosition());
 }
+
+void galaga::Enemy::Destroy() {
+  texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kExplosionFilePath));
+}
+
+galaga::Enemy& galaga::Enemy::Enemy::operator=(const Enemy& source) {
+  this->center_position_ = source.center_position_;
+  return *this;
+}
+
 
 cinder::Rectf galaga::Enemy::GenerateRectPosition() const {
   cinder::Rectf drawRect(center_position_[0] - kEnemyDimensions / 2,

@@ -38,6 +38,9 @@ class Space {
   Battleship battleship_;
   std::vector<PlayerBullet> bullets_;
   std::vector<Enemy> enemies_;
+
+  void UpdateBullets();
+  void UpdateEnemies();
 };
 
 }  // namespace galaga
