@@ -2,7 +2,6 @@
 // Created by sujay on 11/17/2020.
 //
 
-#include "cinder/Rand.h"
 #include "visualizer/space.h"
 
 galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
@@ -11,7 +10,6 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
       battleship_(glm::vec2(
           top_left_corner_[0] + static_cast<float>(dimensions) / 2,
           top_left_corner_[1] + 9 * static_cast<float>(dimensions) / 10)) {
-  ci::Rand::randomize();
   for (size_t enemy_index = 0; enemy_index < kNumEnemies; enemy_index++) {
     enemies_.emplace_back(Enemy(top_left_corner_[0] + (glm::vec2((enemy_index * static_cast<float>(dimensions)) / kNumEnemies, top_left_corner_[1] + cinder::randFloat(0.2f) * static_cast<float>(dimensions)))));
   }

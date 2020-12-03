@@ -5,6 +5,8 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "cinder/Rand.h"
+
 
 namespace galaga {
 
@@ -32,9 +34,15 @@ class Enemy {
 
  private:
   static constexpr size_t kEnemyDimensions = 40;
-  const std::string kSpriteFilePath =
+  const std::string kSpriteOneFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
-      "sujay170nanj\\resources\\enemy_sprite.png";
+      "sujay170nanj\\resources\\enemy_sprite1.png";
+  const std::string kSpriteTwoFilePath =
+      "D:\\Downloads\\Cinder\\my-projects\\final-project-"
+      "sujay170nanj\\resources\\enemy_sprite2.png";
+  const std::string kSpriteThreeFilePath =
+      "D:\\Downloads\\Cinder\\my-projects\\final-project-"
+      "sujay170nanj\\resources\\enemy_sprite3.png";
   const std::string kExplosionFilePath = "D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\explosion_sprite.png";
 
   glm::vec2 center_position_;

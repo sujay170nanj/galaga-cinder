@@ -7,7 +7,20 @@
 galaga::Enemy::Enemy(const glm::vec2& position) : center_position_(position) {
   is_dead_ = false;
   explosion_timer_ = 40;
-  texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
+
+  ci::Rand::randomize();
+  size_t sprite_num = cinder::randInt(3);
+  switch (sprite_num) {
+    case 0:
+      texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteOneFilePath));
+      break;
+    case 1:
+      texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteTwoFilePath));
+      break;
+    case 2:
+      texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteThreeFilePath));
+      break;
+  }
 }
 
 void galaga::Enemy::Update() {
