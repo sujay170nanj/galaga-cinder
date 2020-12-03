@@ -16,7 +16,7 @@ void galaga::GalagaApp::update() {
 
 void galaga::GalagaApp::draw() {
   AppBase::draw();
-  ci::Color8u background_color(255, 246, 148);  // yellow
+  ci::Color8u background_color(0, 0, 0);  // yellow
   ci::gl::clear(background_color);
 
   space_.Draw();

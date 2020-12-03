@@ -13,14 +13,13 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
           top_left_corner_[1] + 9 * static_cast<float>(dimensions) / 10)) {
   ci::Rand::randomize();
   for (size_t enemy_index = 0; enemy_index < kNumEnemies; enemy_index++) {
-    enemies_.emplace_back(Enemy(top_left_corner_[0] + (glm::vec2((enemy_index * static_cast<float>(dimensions)) / kNumEnemies, top_left_corner_[1] + cinder::randFloat(0.3f) * static_cast<float>(dimensions)))));
+    enemies_.emplace_back(Enemy(top_left_corner_[0] + (glm::vec2((enemy_index * static_cast<float>(dimensions)) / kNumEnemies, top_left_corner_[1] + cinder::randFloat(0.2f) * static_cast<float>(dimensions)))));
   }
 }
 
 void galaga::Space::Update() {
   UpdateBullets();
   UpdateEnemies();
-
 }
 
 
@@ -68,9 +67,23 @@ void galaga::Space::UpdateBullets() {
 void galaga::Space::UpdateEnemies() {
   for (size_t enemy_index = 0; enemy_index < enemies_.size();
                             enemy_index++)  {
-    enemies_[enemy_index].Update();
-    if (battleship_.GenerateRectPosition().intersects(enemies_[enemy_index].GenerateRectPosition())) {
+    if (!enemies_[enemy_index].IsDead()) {
+      enemies_[enemy_index].Update();
+    } else if (enemies_[enemy_index].GetExplosionTimer() != 0) {
+      enemies_[enemy_index].DecrementExplosionTimer();
+    } else {
       enemies_.erase(enemies_.begin() + enemy_index);
+      return;
+    }
+
+    if ((this->enemies_[enemy_index].GenerateRectPosition().getLowerLeft()[1] - this->enemies_[enemy_index].kVerticalSpeed) >
+        (this->top_left_corner_[1] + dimensions_)) {
+      enemies_[enemy_index].Destroy();
+      return;
+    }
+
+    if (battleship_.GenerateRectPosition().intersects(enemies_[enemy_index].GenerateRectPosition())) {
+      enemies_[enemy_index].Destroy();
       return;
     }
 
@@ -78,7 +91,7 @@ void galaga::Space::UpdateEnemies() {
          bullet_index++) {
       if (bullets_[bullet_index].GenerateRectPosition().intersects(enemies_[enemy_index].GenerateRectPosition())) {
         bullets_.erase(bullets_.begin() + bullet_index);
-        enemies_.erase(enemies_.begin() + enemy_index);
+        enemies_[enemy_index].Destroy();
         return;
       }
     }

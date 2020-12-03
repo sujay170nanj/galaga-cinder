@@ -24,7 +24,13 @@ void galaga::Battleship::Draw() const {
 void galaga::Battleship::Destroy() {
   if (lives_ > 0) {
     lives_--;
+  } else {
+
   }
+}
+
+size_t galaga::Battleship::GetLives() const {
+  return lives_;
 }
 
 cinder::Rectf galaga::Battleship::GenerateRectPosition() const {

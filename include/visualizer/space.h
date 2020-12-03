@@ -33,6 +33,7 @@ class Space {
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\background.gif";
 
+  size_t score_;
   glm::vec2 top_left_corner_;
   size_t dimensions_;
   Battleship battleship_;
