@@ -26,6 +26,8 @@ class Space {
 
   Battleship& GetBattleship();
 
+  size_t GetScore() const;
+
  private:
   const size_t kBulletMargin = 5;
   const size_t kNumEnemies = 8;

@@ -99,4 +99,6 @@ void galaga::Space::UpdateEnemies() {
 galaga::Battleship& galaga::Space::GetBattleship() {
   return battleship_;
 }
-
+size_t galaga::Space::GetScore() const {
+  return score_;
+}
