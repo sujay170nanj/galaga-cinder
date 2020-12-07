@@ -20,7 +20,11 @@ class Space {
 
   void Draw() const;
 
-  void Clear();
+  void NextLevel();
+
+  void GenerateEnemies(size_t num_enemies);
+
+  void Restart();
 
   void BattleshipLeftShoot();
 
@@ -28,15 +32,17 @@ class Space {
 
   size_t GetScore() const;
 
+  size_t GetLevel() const;
+
  private:
   const size_t kBulletMargin = 5;
-  const size_t kNumEnemies = 8;
   const size_t kScoreIncrement = 50;
   const std::string kBackgroundFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\background.gif";
 
   size_t score_;
+  size_t level_;
   glm::vec2 top_left_corner_;
   size_t dimensions_;
   Battleship battleship_;

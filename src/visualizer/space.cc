@@ -11,19 +11,27 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
           top_left_corner_[0] + static_cast<float>(dimensions) / 2,
           top_left_corner_[1] + 9 * static_cast<float>(dimensions) / 10)) {
   score_ = 0;
+  level_ = 1;
 
-  for (size_t enemy_index = 0; enemy_index < kNumEnemies; enemy_index++) {
-    enemies_.emplace_back(Enemy(
-        top_left_corner_[0] +
-        (glm::vec2((enemy_index * static_cast<float>(dimensions)) / kNumEnemies,
-                   top_left_corner_[1] + cinder::randFloat(0.2f) *
-                                             static_cast<float>(dimensions)))));
-  }
+  GenerateEnemies(level_ * 3);
 }
 
 void galaga::Space::Update() {
   UpdateBullets();
   UpdateEnemies();
+
+  if (enemies_.empty()) {
+    NextLevel();
+  }
+
+  if (battleship_.IsDead()) {
+    if (battleship_.GetExplosionTimer() != 0) {
+      battleship_.DecrementExplosionTimer();
+    } else {
+      battleship_.Restart();
+      Restart();
+    }
+  }
 }
 
 void galaga::Space::Draw() const {
@@ -46,14 +54,35 @@ void galaga::Space::Draw() const {
   }
 }
 
-void galaga::Space::Clear() {
+void galaga::Space::NextLevel() {
+  level_++;
+  GenerateEnemies(level_*3);
+}
+
+void galaga::Space::GenerateEnemies(size_t num_enemies) {
+  for (size_t enemy_index = 0; enemy_index < num_enemies; enemy_index++) {
+    enemies_.emplace_back(Enemy(
+        top_left_corner_[0] +
+        (glm::vec2((enemy_index * static_cast<float>(dimensions_)) / num_enemies,
+                   top_left_corner_[1] + cinder::randFloat(0.2f) *
+                                         static_cast<float>(dimensions_)))));
+  }
+}
+
+void galaga::Space::Restart() {
   bullets_.clear();
+  enemies_.clear();
+  battleship_.Restart();
+  score_ = 0;
+  level_ = 0;
 }
 
 void galaga::Space::BattleshipLeftShoot() {
-  bullets_.emplace_back(PlayerBullet(glm::vec2(
-      battleship_.GenerateRectPosition().getCenter()[0],
-      battleship_.GenerateRectPosition().getUpperLeft()[1] - kBulletMargin)));
+  if (!battleship_.IsDead()) {
+    bullets_.emplace_back(PlayerBullet(glm::vec2(
+        battleship_.GenerateRectPosition().getCenter()[0],
+        battleship_.GenerateRectPosition().getUpperLeft()[1] - kBulletMargin)));
+  }
 }
 
 void galaga::Space::UpdateBullets() {
@@ -110,4 +139,7 @@ galaga::Battleship& galaga::Space::GetBattleship() {
 }
 size_t galaga::Space::GetScore() const {
   return score_;
+}
+size_t galaga::Space::GetLevel() const {
+  return level_;
 }
