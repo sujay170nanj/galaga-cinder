@@ -6,6 +6,7 @@
 
 galaga::Battleship::Battleship(const glm::vec2& position)
     : center_position_(position) {
+  lives_ = 3;
   texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kSpriteFilePath));
 }
 

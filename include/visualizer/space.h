@@ -31,6 +31,7 @@ class Space {
  private:
   const size_t kBulletMargin = 5;
   const size_t kNumEnemies = 8;
+  const size_t kScoreIncrement = 50;
   const std::string kBackgroundFilePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\background.gif";

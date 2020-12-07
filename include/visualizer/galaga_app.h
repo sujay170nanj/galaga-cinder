@@ -8,6 +8,10 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "visualizer/space.h"
+#include "cinder/DataSource.h"
+#include "cinder/Font.h"
+
+
 
 namespace galaga {
 
@@ -26,8 +30,10 @@ class GalagaApp : public ci::app::App {
   void keyDown(ci::app::KeyEvent event) override;
 
   // Text font size
-  const float kTitleFontSize = 50;
   const float kSubtitleFontSize = 44;
+  // Text margin
+  const float kHorizontalTextMargin = 20;
+  const float kVerticalTextMargin = 20;
   // Size of the space container
   const size_t kBoxSize = 650;
   // Horizontal size of the window
@@ -37,7 +43,9 @@ class GalagaApp : public ci::app::App {
   const glm::vec2 kSpaceTopLeftCorner = glm::vec2(100, 125);
 
  private:
-  const std::string kTitlePath = "D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\galaga_title.png";
+  const std::string kTitlePath =
+      "D:\\Downloads\\Cinder\\my-projects\\final-project-"
+      "sujay170nanj\\resources\\galaga_title.png";
   Space space_;
 };
 
