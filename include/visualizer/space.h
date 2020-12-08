@@ -20,11 +20,7 @@ class Space {
 
   void Draw() const;
 
-  void NextLevel();
-
   void GenerateEnemies(size_t num_enemies);
-
-  void Restart();
 
   void BattleshipLeftShoot();
 
@@ -49,6 +45,8 @@ class Space {
   std::vector<PlayerBullet> bullets_;
   std::vector<Enemy> enemies_;
 
+  void NextLevel();
+  void Restart();
   void UpdateBullets();
   void UpdateEnemies();
 };

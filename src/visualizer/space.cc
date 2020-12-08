@@ -73,6 +73,21 @@ void galaga::Space::Restart() {
   bullets_.clear();
   enemies_.clear();
   battleship_.Restart();
+
+  std::ifstream InputFile("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+  if(InputFile.is_open())
+  {
+    size_t highscore;
+    InputFile >> highscore;
+    if(highscore < score_)
+    {
+      std::ofstream OutputFile ("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+      OutputFile << score_;
+      OutputFile.close();
+    }
+    InputFile.close();
+  }
+
   score_ = 0;
   level_ = 0;
 }

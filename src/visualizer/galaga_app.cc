@@ -25,20 +25,32 @@ void galaga::GalagaApp::draw() {
                            kSpaceTopLeftCorner[0] + kBoxSize,
                            kSpaceTopLeftCorner[1]);
   ci::gl::draw(title_texture, title_rect);
-  
+
+  size_t highscore = 0;
+  std::ifstream InputFile("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+  if(InputFile.is_open())
+  {
+    InputFile >> highscore;
+  }
+
   ci::gl::drawString(
-      "Score: " + std::to_string(space_.GetScore()),
+      "High Score: " + std::to_string(highscore),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + kVerticalTextMargin),
       ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
 
   ci::gl::drawString(
-      "Lives: " + std::to_string(space_.GetBattleship().GetLives()),
+      "Score: " + std::to_string(space_.GetScore()),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 5*kVerticalTextMargin),
       ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
 
   ci::gl::drawString(
-      "Level: " + std::to_string(space_.GetLevel()),
+      "Lives: " + std::to_string(space_.GetBattleship().GetLives()),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 10*kVerticalTextMargin),
+      ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
+
+  ci::gl::drawString(
+      "Level: " + std::to_string(space_.GetLevel()),
+      glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 15*kVerticalTextMargin),
       ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
 
   space_.Draw();
