@@ -34,6 +34,7 @@ void galaga::Battleship::Destroy() {
     lives_--;
   } else {
     is_dead_ = true;
+    // Sets the sprite to the explosion
     texture_ = cinder::gl::Texture2d::create(cinder::loadImage(kExplosionFilePath));
   }
 }
@@ -55,6 +56,7 @@ size_t galaga::Battleship::GetLives() const {
 }
 
 cinder::Rectf galaga::Battleship::GenerateRectPosition() const {
+  // Rectangle made with four corners of sprite
   cinder::Rectf drawRect(center_position_[0] - kBattleshipDimensions / 2,
                          center_position_[1] - kBattleshipDimensions / 2,
                          center_position_[0] + kBattleshipDimensions / 2,

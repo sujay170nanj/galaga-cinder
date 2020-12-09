@@ -19,6 +19,7 @@ void galaga::GalagaApp::draw() {
   ci::Color8u background_color(0, 0, 0);
   ci::gl::clear(background_color);
 
+  // Draws the galaga title
   ci::gl::TextureRef title_texture =
       cinder::gl::Texture2d::create(cinder::loadImage(kTitlePath));
   cinder::Rectf title_rect(kSpaceTopLeftCorner[0], 0,
@@ -26,8 +27,9 @@ void galaga::GalagaApp::draw() {
                            kSpaceTopLeftCorner[1]);
   ci::gl::draw(title_texture, title_rect);
 
+  // Stores the highscore from the highscore.txt file
   size_t highscore = 0;
-  std::ifstream InputFile("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+  std::ifstream InputFile(space_.kHighscoreFilePath);
   if(InputFile.is_open())
   {
     InputFile >> highscore;
@@ -36,22 +38,22 @@ void galaga::GalagaApp::draw() {
   ci::gl::drawString(
       "High Score: " + std::to_string(highscore),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + kVerticalTextMargin),
-      ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
+      ci::Color("white"), ci::Font(kFontTitle, kSubtitleFontSize));
 
   ci::gl::drawString(
       "Score: " + std::to_string(space_.GetScore()),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 5*kVerticalTextMargin),
-      ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
+      ci::Color("white"), ci::Font(kFontTitle, kSubtitleFontSize));
 
   ci::gl::drawString(
       "Lives: " + std::to_string(space_.GetBattleship().GetLives()),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 10*kVerticalTextMargin),
-      ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
+      ci::Color("white"), ci::Font(kFontTitle, kSubtitleFontSize));
 
   ci::gl::drawString(
       "Level: " + std::to_string(space_.GetLevel()),
       glm::vec2(kSpaceTopLeftCorner[0] + kBoxSize + kHorizontalTextMargin, kSpaceTopLeftCorner[1] + 15*kVerticalTextMargin),
-      ci::Color("white"), ci::Font("ArcadeClassic", kSubtitleFontSize));
+      ci::Color("white"), ci::Font(kFontTitle, kSubtitleFontSize));
 
   space_.Draw();
 }
@@ -64,14 +66,14 @@ void galaga::GalagaApp::keyDown(ci::app::KeyEvent event) {
       space_.BattleshipLeftShoot();
       break;
     case ci::app::KeyEvent::KEY_LEFT:
-      // move right
+      // move left unless at bounds
       if ((space_.GetBattleship().GenerateRectPosition().getLowerLeft()[0] -
            space_.GetBattleship().kSpeed) > kSpaceTopLeftCorner[0]) {
         space_.GetBattleship().MoveLeft();
       }
       break;
     case ci::app::KeyEvent::KEY_RIGHT:
-      // move left
+      // move right unless at bounds
       if ((space_.GetBattleship().GenerateRectPosition().getLowerRight()[0] +
            space_.GetBattleship().kSpeed) <
           (kSpaceTopLeftCorner[0] + kBoxSize)) {

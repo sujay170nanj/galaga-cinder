@@ -17,10 +17,8 @@ void galaga::PlayerBullet::Draw() const {
   ci::gl::draw(texture_, GenerateRectPosition());
 }
 
-void galaga::PlayerBullet::Destroy() {
-}
-
 cinder::Rectf galaga::PlayerBullet::GenerateRectPosition() const {
+  // Rectangle made with four corners of sprite
   cinder::Rectf drawRect(center_position_[0] - kBulletDimensions / 2,
                          center_position_[1] - kBulletDimensions / 2,
                          center_position_[0] + kBulletDimensions / 2,

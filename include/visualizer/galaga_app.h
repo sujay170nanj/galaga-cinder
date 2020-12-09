@@ -44,6 +44,9 @@ class GalagaApp : public ci::app::App {
   const glm::vec2 kSpaceTopLeftCorner = glm::vec2(100, 125);
 
  private:
+  // Title of the text font
+  const std::string kFontTitle = "ArcadeClassic";
+  // File path of Galaga title
   const std::string kTitlePath =
       "D:\\Downloads\\Cinder\\my-projects\\final-project-"
       "sujay170nanj\\resources\\galaga_title.png";

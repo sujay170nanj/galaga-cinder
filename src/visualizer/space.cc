@@ -13,7 +13,7 @@ galaga::Space::Space(const glm::vec2& top_left_corner, size_t dimensions)
   score_ = 0;
   level_ = 1;
 
-  GenerateEnemies(level_ * 3);
+  GenerateEnemies(level_);
 }
 
 void galaga::Space::Update() {
@@ -24,17 +24,20 @@ void galaga::Space::Update() {
     NextLevel();
   }
 
+  // Performs end of life behavior for battleship
   if (battleship_.IsDead()) {
     if (battleship_.GetExplosionTimer() != 0) {
       battleship_.DecrementExplosionTimer();
     } else {
       battleship_.Restart();
       Restart();
+      GenerateEnemies(level_);
     }
   }
 }
 
 void galaga::Space::Draw() const {
+  // Sets the background texture
   cinder::gl::Texture2dRef background_texture =
       cinder::gl::Texture2d::create(cinder::loadImage(kBackgroundFilePath));
   ci::gl::draw(background_texture,
@@ -56,14 +59,15 @@ void galaga::Space::Draw() const {
 
 void galaga::Space::NextLevel() {
   level_++;
-  GenerateEnemies(level_*3);
+  GenerateEnemies(level_);
 }
 
-void galaga::Space::GenerateEnemies(size_t num_enemies) {
-  for (size_t enemy_index = 0; enemy_index < num_enemies; enemy_index++) {
+void galaga::Space::GenerateEnemies(size_t level) {
+  // Generates 3 more enemies for each level
+  for (size_t enemy_index = 0; enemy_index < (level*3); enemy_index++) {
     enemies_.emplace_back(Enemy(
         top_left_corner_[0] +
-        (glm::vec2((enemy_index * static_cast<float>(dimensions_)) / num_enemies,
+        (glm::vec2((enemy_index * static_cast<float>(dimensions_)) / (level*3),
                    top_left_corner_[1] + cinder::randFloat(0.2f) *
                                          static_cast<float>(dimensions_)))));
   }
@@ -74,14 +78,15 @@ void galaga::Space::Restart() {
   enemies_.clear();
   battleship_.Restart();
 
-  std::ifstream InputFile("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+  // Writes new highscores to the highscore.txt file
+  std::ifstream InputFile(kHighscoreFilePath);
   if(InputFile.is_open())
   {
     size_t highscore;
     InputFile >> highscore;
     if(highscore < score_)
     {
-      std::ofstream OutputFile ("D:\\Downloads\\Cinder\\my-projects\\final-project-sujay170nanj\\resources\\highscore.txt");
+      std::ofstream OutputFile (kHighscoreFilePath);
       OutputFile << score_;
       OutputFile.close();
     }
@@ -89,10 +94,11 @@ void galaga::Space::Restart() {
   }
 
   score_ = 0;
-  level_ = 0;
+  level_ = 1;
 }
 
 void galaga::Space::BattleshipLeftShoot() {
+  // Shoots a bullet if the battleship is still alive
   if (!battleship_.IsDead()) {
     bullets_.emplace_back(PlayerBullet(glm::vec2(
         battleship_.GenerateRectPosition().getCenter()[0],
@@ -101,10 +107,11 @@ void galaga::Space::BattleshipLeftShoot() {
 }
 
 void galaga::Space::UpdateBullets() {
-  for (size_t index = 0; index < this->bullets_.size(); index++) {
-    if ((this->bullets_[index].GetCenterPosition()[1] -
-         this->bullets_[index].kSpeed) < (this->top_left_corner_[1])) {
-      this->bullets_.erase(this->bullets_.begin() + index);
+  for (size_t index = 0; index < bullets_.size(); index++) {
+    // Deletes bullets that leave the bounds
+    if ((bullets_[index].GetCenterPosition()[1] -
+         bullets_[index].kSpeed) < (top_left_corner_[1])) {
+      bullets_.erase(bullets_.begin() + index);
     } else {
       this->bullets_[index].Update();
     }
@@ -113,6 +120,7 @@ void galaga::Space::UpdateBullets() {
 
 void galaga::Space::UpdateEnemies() {
   for (size_t enemy_index = 0; enemy_index < enemies_.size(); enemy_index++) {
+    // Performs end of life behavior for an enemy
     if (!enemies_[enemy_index].IsDead()) {
       enemies_[enemy_index].Update();
     } else if (enemies_[enemy_index].GetExplosionTimer() != 0) {
@@ -122,13 +130,15 @@ void galaga::Space::UpdateEnemies() {
       return;
     }
 
+    // Destroys bullets that leave the bounds
     if ((this->enemies_[enemy_index].GenerateRectPosition().getLowerLeft()[1] -
-         this->enemies_[enemy_index].kVerticalSpeed) >
+         this->enemies_[enemy_index].kSpeed) >
         (this->top_left_corner_[1] + dimensions_)) {
       enemies_[enemy_index].Destroy();
       return;
     }
 
+    // Checks for enemy and battleship collisions and destroys each
     if (!enemies_[enemy_index].IsDead() && battleship_.GenerateRectPosition().intersects(
             enemies_[enemy_index].GenerateRectPosition())) {
       enemies_[enemy_index].Destroy();
@@ -136,9 +146,10 @@ void galaga::Space::UpdateEnemies() {
       return;
     }
 
+    // Checks for bullet and enemy collisions, destroys each, and increments score
     for (size_t bullet_index = 0; bullet_index < bullets_.size();
          bullet_index++) {
-      if (bullets_[bullet_index].GenerateRectPosition().intersects(
+      if (!enemies_[enemy_index].IsDead() && bullets_[bullet_index].GenerateRectPosition().intersects(
               enemies_[enemy_index].GenerateRectPosition())) {
         bullets_.erase(bullets_.begin() + bullet_index);
         enemies_[enemy_index].Destroy();

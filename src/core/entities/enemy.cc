@@ -8,6 +8,7 @@ galaga::Enemy::Enemy(const glm::vec2& position) : center_position_(position) {
   is_dead_ = false;
   explosion_timer_ = 40;
 
+  // Sets the sprite to a random image from the three available
   ci::Rand::randomize();
   size_t sprite_num = cinder::randInt(3);
   switch (sprite_num) {
@@ -24,7 +25,7 @@ galaga::Enemy::Enemy(const glm::vec2& position) : center_position_(position) {
 }
 
 void galaga::Enemy::Update() {
-  center_position_[1] += kVerticalSpeed;
+  center_position_[1] += kSpeed;
 }
 
 void galaga::Enemy::Draw() const {
@@ -46,6 +47,7 @@ galaga::Enemy& galaga::Enemy::Enemy::operator=(const Enemy& source) {
 
 
 cinder::Rectf galaga::Enemy::GenerateRectPosition() const {
+  // Rectangle made with four corners of sprite
   cinder::Rectf drawRect(center_position_[0] - kEnemyDimensions / 2,
                          center_position_[1] - kEnemyDimensions / 2,
                          center_position_[0] + kEnemyDimensions / 2,
