@@ -36,13 +36,6 @@ class Space {
   void Draw() const;
 
   /**
-   * Adds more enemies depending on the current level
-   *
-   * @param level current level
-   */
-  void GenerateEnemies(size_t level);
-
-  /**
    * Performs the action of the battleship's shooting
    */
   void BattleshipLeftShoot();
@@ -57,6 +50,8 @@ class Space {
   size_t GetScore() const;
 
   size_t GetLevel() const;
+
+  const std::vector<Enemy>& GetEnemies() const;
 
  private:
   // The margin between the battleship and the initial position of the bullet
@@ -75,6 +70,13 @@ class Space {
   Battleship battleship_;
   std::vector<PlayerBullet> bullets_;
   std::vector<Enemy> enemies_;
+ private:
+  /**
+   * Adds more enemies depending on the current level
+   *
+   * @param level current level
+   */
+  void GenerateEnemies(size_t level);
 
   /**
    * Takes the game to the next level

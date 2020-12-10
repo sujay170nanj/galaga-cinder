@@ -63,7 +63,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/core/entities/enemy.cc
         src/core/particles/player_bullet.cc)
 
-list(APPEND TEST_FILES)
+list(APPEND TEST_FILES tests/test_battleship.cc tests/test_enemy.cc tests/test_player_bullet.cc)
 
 ci_make_app(
         APP_NAME        galaga-game

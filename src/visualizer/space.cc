@@ -169,3 +169,6 @@ size_t galaga::Space::GetScore() const {
 size_t galaga::Space::GetLevel() const {
   return level_;
 }
+const std::vector<galaga::Enemy>& galaga::Space::GetEnemies() const {
+  return enemies_;
+}
