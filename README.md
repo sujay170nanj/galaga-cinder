@@ -1,22 +1,68 @@
-# Read Me
+# Galaga Game Clone
 
-## Description
+A modern C++ implementation of the classic arcade game Galaga using the Cinder framework for graphics and gameplay.
 
-This is a recreation of the classic arcade game Galaga. It is different in a few senses as all the enemies have linear movement. However, it maintains a similar design and appearance. 
-It maintains a highscore which can be achieved by destroying enemies. There is no win condition, you just have to try to get the highest score.
+## Overview
 
-### Features:
-* 50 points for each enemy destroyed
-* 3 lives
-* 3 times the level enemies are spawned at each level
+This project recreates the core mechanics of Galaga with the following features:
 
-### Controls:
-* Left and right arrow to move left and right
-* Z to shoot a bullet
+- Player-controlled battleship that can move and shoot
+- Enemy ships that move downward in formations
+- Score tracking with persistent high score
+- Multiple lives system 
+- Increasing difficulty through levels
+- Arcade-style visuals and custom font
 
-### Custom Font:
+## Getting Started
 
-To use the custom arcade font, install the font from the arcade_font.ttf file in resources.
+### Prerequisites
 
-### Note:
-Do note edit the highscore.txt file as that will mess up the highscore feature.
+- CMake 3.12+
+- C++11 compatible compiler
+- Cinder graphics framework
+- Visual Studio 2019+ (Windows) or Xcode (macOS)
+
+### Building the Project
+
+1. Clone the repository
+2. Install the arcade font from `resources/arcade_font.TTF`
+3. Build using CMake:
+
+```bash
+mkdir build
+cd build
+cmake ..
+```
+
+4. Open the generated project files in your IDE
+5. Build the galaga-game target
+
+   
+## Running the Game
+Launch the compiled galaga-game executable.
+
+### Controls
+- Left/Right Arrow Keys - Move battleship
+- Z - Fire bullet
+- Close window to exit
+
+### Implementation Details
+The game is structured around these key components:
+
+- Space - Main game container managing all entities
+- GalagaApp - Cinder application wrapper handling rendering and input
+- Battleship - Player-controlled ship
+- Enemy - Enemy ships with movement patterns
+- PlayerBullet - Projectile physics
+
+The architecture uses modern C++ practices and is thoroughly unit tested using Catch2.
+
+## Testing
+Run the unit tests by building and running the galaga-test target.
+
+## Notes
+
+- High scores are persisted in resources/highscore.txt
+- The game has no win condition - aim for the highest score possible
+- Each level increases enemy count by 3x
+- Each enemy destroyed awards 50 points
